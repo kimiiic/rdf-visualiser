@@ -1,6 +1,6 @@
 # RDF Visualizer
 
-React + Vite app that turns uploaded Turtle (`.ttl`) documents into an interactive graph and searchable triple table.
+React + Vite RDF visualizer that turns Turtle files into an interactive graph and searchable triple table. Supports drag-and-drop uploads or bundled samples, highlighting resources vs. literals with vis-network, and adds node/predicate filtering plus relationship statistics for quick analysis. Built with TypeScript strict mode, pnpm, and Vitest coverage for the parsing pipeline.
 
 ## Features
 - Drag-and-drop Turtle files (or load a bundled sample) for instant parsing via `n3`.
