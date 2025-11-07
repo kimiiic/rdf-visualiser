@@ -1,5 +1,10 @@
 # RDF Visualizer
 
+<p align="center">
+  <img src="banner1.png" alt="RDF Visualizer banner variant 1" width="45%">
+  <img src="banner2.png" alt="RDF Visualizer banner variant 2" width="45%">
+</p>
+
 React + Vite RDF visualizer that turns Turtle files into an interactive graph and searchable triple table. Supports drag-and-drop uploads or bundled samples, highlighting resources vs. literals with vis-network, and adds node/predicate filtering plus relationship statistics for quick analysis. Built with TypeScript strict mode, pnpm, and Vitest coverage for the parsing pipeline.
 
 ## Features
