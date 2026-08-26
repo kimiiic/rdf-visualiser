@@ -79,8 +79,8 @@ button.secondary:hover {
 }
 
 .panel.fill {
-  min-height: 420px;
-  height: clamp(420px, 65vh, 820px);
+  min-height: 660px;
+  height: clamp(660px, 82vh, 960px);
   display: flex;
 }
 
@@ -195,6 +195,49 @@ button.secondary:hover {
   overflow: hidden;
 }
 
+.graph-stage {
+  position: relative;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  min-height: 260px;
+}
+
+.graph-legend {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.75rem;
+  max-width: calc(100% - 1.7rem);
+  padding: 0.55rem 0.7rem;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 0.75rem;
+  background: rgba(2, 6, 23, 0.76);
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+  backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #e2e8f0;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.legend-swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(148, 163, 184, 0.24);
+}
+
 .empty-state {
   margin: auto;
   text-align: center;
@@ -215,12 +258,85 @@ button.secondary:hover {
   width: 100%;
 }
 
+body.graph-fullscreen-open {
+  overflow: hidden;
+}
+
+.panel.fill.graph-fullscreen-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 0;
+  padding: 1.25rem;
+  border: none;
+  border-radius: 0;
+  background: radial-gradient(circle at top left, rgba(30, 64, 175, 0.2), transparent 42%), #020617;
+  transform: none;
+}
+
+.panel.fill.graph-fullscreen-shell:hover {
+  transform: none;
+}
+
+.graph-pane.fullscreen {
+  min-height: 0;
+}
+
+.graph-pane.fullscreen .graph-stage {
+  flex: 1;
+  min-height: 0;
+}
+
+.graph-pane.fullscreen .graph-container {
+  flex: 1;
+  min-height: 0;
+}
+
+.graph-pane .graph-container {
+  min-height: 260px;
+}
+
 .analysis-toolbar,
 .graph-toolbar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.graph-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.fullscreen-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(120deg, rgba(56, 189, 248, 0.14), rgba(14, 165, 233, 0.24));
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  color: var(--text);
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.fullscreen-toggle:not(:disabled):hover {
+  border-color: var(--accent);
+  background: rgba(56, 189, 248, 0.2);
+  transform: translateY(-1px);
+}
+
+.fullscreen-toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .toolbar-title {
@@ -247,6 +363,108 @@ button.secondary:hover {
   color: var(--text);
   min-width: 240px;
   backdrop-filter: blur(12px);
+}
+
+.predicate-filter {
+  flex-shrink: 0;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 1rem;
+  background: rgba(2, 6, 23, 0.32);
+  overflow: hidden;
+}
+
+.predicate-filter summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.predicate-filter summary::-webkit-details-marker {
+  display: none;
+}
+
+.predicate-filter summary > span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.predicate-filter small {
+  color: var(--muted);
+}
+
+.predicate-filter-body {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.predicate-filter-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.85rem 0;
+}
+
+.predicate-filter-tools input {
+  flex: 1 1 240px;
+  min-width: 0;
+  background: rgba(2, 6, 23, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  color: var(--text);
+}
+
+.predicate-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 0.5rem;
+  max-height: 130px;
+  overflow-y: auto;
+}
+
+.predicate-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  background: rgba(15, 23, 42, 0.55);
+  transition: border 160ms ease, background 160ms ease;
+}
+
+.predicate-option.selected {
+  border-color: rgba(56, 189, 248, 0.55);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.predicate-option input {
+  margin-top: 0.2rem;
+  accent-color: var(--accent);
+}
+
+.predicate-option span {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.predicate-option small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.predicate-filter-empty {
+  margin: 0;
+  color: var(--muted);
 }
 
 .pill {
@@ -327,6 +545,20 @@ button.secondary:hover {
 
   .triple-row {
     grid-template-columns: 1fr;
+  }
+
+  .panel.fill.graph-fullscreen-shell {
+    padding: 0.75rem;
+  }
+
+  .graph-toolbar-actions,
+  .search-box {
+    width: 100%;
+  }
+
+  .search-box input {
+    min-width: 0;
+    flex: 1;
   }
 }
 

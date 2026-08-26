@@ -9,10 +9,20 @@ export interface TripleRecord {
   language?: string;
 }
 
+export type GraphNodeCategory =
+  | 'class'
+  | 'objectProperty'
+  | 'datatypeProperty'
+  | 'annotationProperty'
+  | 'individual'
+  | 'resource'
+  | 'literal';
+
 export interface GraphNode {
   id: string;
   label: string;
   kind: 'resource' | 'literal';
+  category: GraphNodeCategory;
   title?: string;
 }
 
@@ -34,4 +44,10 @@ export interface GraphBundle {
   nodes: GraphNode[];
   edges: GraphEdge[];
   summary: GraphSummary;
+}
+
+export interface PredicateFilterOption {
+  id: string;
+  label: string;
+  iri: string;
 }
